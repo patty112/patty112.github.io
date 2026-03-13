@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hugh Movies — Patrick's Site</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="scanlines"></div>
+<div class="vignette"></div>
+
+<nav>
+  <a href="/" class="nav-logo">PATTY.QUEST<span class="blink">_</span></a>
+  <div class="nav-links">
+    <a href="/">HOME</a>
+    <a href="/reviews.html" class="active">HUGH MOVIES</a>
+    <button id="logoutBtn" class="nav-logout" style="display:none" onclick="logout()">LOG OUT</button>
+  </div>
+</nav>
+
+<main class="reviews-main container">
+
+  <div class="reviews-header">
+    <div class="reviews-header-top">
+      <div class="reviews-badge">NOW SCREENING</div>
+      <div id="userBanner" class="user-banner" style="display:none">
+        <span class="user-dot">●</span> <span id="userGreeting"></span>
+      </div>
+    </div>
+    <h1 class="reviews-title">HUGH<br>MOVIES<span class="title-dot">.</span></h1>
+    <p class="reviews-sub">movie reviews from the hugh jits.</p>
+  </div>
+
+  <!-- Controls -->
+  <div class="controls">
+    <input id="searchBar" placeholder="Search films…" oninput="fetchAndRender()" autocomplete="off">
+    <select id="reviewerFilter" onchange="fetchAndRender()">
+      <option value="all">ALL REVIEWERS</option>
+      <option value="patrick">PATRICK</option>
+      <option value="jimmy">JIMMY</option>
+      <option value="ryland">RYLAND</option>
+      <option value="jose">JOSE</option>
+      <option value="kris">KRIS</option>
+    </select>
+    <select id="sortFilter" onchange="fetchAndRender()">
+      <option value="newest">NEWEST FIRST</option>
+      <option value="high">HIGHEST RATED</option>
+      <option value="low">LOWEST RATED</option>
+    </select>
+  </div>
+
+  <!-- Login -->
+  <div class="login-panel" id="loginPanel">
+    <div class="login-label">[ REVIEWER LOGIN ]</div>
+    <div class="login-fields">
+      <input id="usernameInput" placeholder="USERNAME" autocomplete="username">
+      <input type="password" id="passwordInput" placeholder="PASSWORD" autocomplete="current-password"
+             onkeydown="if(event.key==='Enter') login()">
+      <button onclick="login()" class="login-btn">▶ LOGIN</button>
+      <span id="loginStatus"></span>
+    </div>
+  </div>
+
+  <!-- Add Review Form -->
+  <div id="addReviewSection" class="add-review" style="display:none">
+    <div class="form-header">[ ADD REVIEW ]</div>
+    <div class="form-row">
+      <input id="movieName" placeholder="MOVIE TITLE">
+      <input id="reviewScore" type="number" min="1" max="10" step="0.1" placeholder="SCORE e.g. 7.5">
+    </div>
+    <textarea id="reviewText" placeholder="WHAT DID YOU THINK?"></textarea>
+    <button onclick="submitReview()" class="submit-btn" id="submitBtn">▶ POST REVIEW</button>
+    <p id="formError" class="form-error"></p>
+  </div>
+
+  <!-- Change Password -->
+  <div id="changePasswordSection" class="add-review change-password" style="display:none">
+    <div class="form-header">[ CHANGE PASSWORD ]</div>
+    <div class="form-row">
+      <input type="password" id="currentPassword" placeholder="CURRENT PASSWORD" autocomplete="current-password">
+      <input type="password" id="newPassword" placeholder="NEW PASSWORD (MIN 8 CHARS)" autocomplete="new-password">
+      <input type="password" id="confirmPassword" placeholder="CONFIRM NEW PASSWORD" autocomplete="new-password">
+    </div>
+    <button onclick="changePassword()" class="submit-btn" id="changePwBtn">▶ UPDATE PASSWORD</button>
+    <p id="changePwStatus"></p>
+  </div>
+
+  <!-- Reviews grid -->
+  <div id="moviesContainer" class="movies-grid"></div>
+
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
